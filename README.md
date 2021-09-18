@@ -2,6 +2,6 @@
 
 This is my attempt to use Sequelize instead of MongoDB to create the devcamper api from the udemy course.
 
-# Credit
+## Credit
 
 Brad Traversy. Node.js API Masterclass With Express & MongDB on udemy.

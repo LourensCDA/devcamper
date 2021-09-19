@@ -58,3 +58,19 @@ Some things to note:
   }
 }
 ```
+
+## Database vs Schema
+
+Postgresql has a distinction between a database and a schema.
+
+Sequelize-cli provides a way to add the database but not the schema and will default the table creation (from the model) to be in the public schema.
+
+A schema can be added in the options part of the model declaration and migration options.
+
+This schema would have to be created manually first though. For example:
+
+```sql
+create schema devcamper;
+```
+
+This also highlights a potential issue where one runs multiple databases that the sequelize user may not need access to. I suggest creating your database and schemas seperatly, not using the sequelize-cli, so you can still control user access on schemas. Model migration can work using sequelize-cli.

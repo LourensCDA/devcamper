@@ -17,8 +17,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// mount routers
-
+// mount routes
 app.use('/api/v1/bootcamps', bootcamps);
 
 app.listen(PORT, () => {

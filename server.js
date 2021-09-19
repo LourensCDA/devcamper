@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 // mount routes
 app.use('/api/v1/bootcamps', bootcamps);
 
-app.listen(PORT, async () => {
+const server = app.listen(PORT, async () => {
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
   );
@@ -30,4 +30,11 @@ app.listen(PORT, async () => {
   await sequelize.authenticate();
   const db_ver = await sequelize.databaseVersion();
   console.log(`PostgreSQL Connected: ${db_ver}`.cyan.underline.bold);
+});
+
+// handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`.red);
+  // close server and exit process
+  server.close(() => process.exit(1));
 });

@@ -13,13 +13,41 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bootcamp.init(
     {
-      name: DataTypes.STRING,
-      slug: DataTypes.TEXT,
-      website: DataTypes.TEXT,
-      phone: DataTypes.STRING,
-      email: DataTypes.TEXT,
-      address: DataTypes.TEXT,
-      location: DataTypes.JSONB,
+      name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          notNull: {
+            msg: 'Please add a name',
+          },
+          notEmpty: {
+            msg: 'Please add a name',
+          },
+          max: {
+            args: 50,
+            msg: 'Name can not be more than 50 characters',
+          },
+        },
+      },
+      slug: {
+        type: DataTypes.TEXT,
+      },
+      website: {
+        type: DataTypes.TEXT,
+      },
+      phone: {
+        type: DataTypes.STRING,
+      },
+      email: {
+        type: DataTypes.TEXT,
+      },
+      address: {
+        type: DataTypes.TEXT,
+      },
+      location: {
+        type: DataTypes.JSONB,
+      },
       careers: {
         type: DataTypes.ENUM,
         values: [
@@ -31,13 +59,27 @@ module.exports = (sequelize, DataTypes) => {
           'Other',
         ],
       },
-      averageRating: DataTypes.INTEGER,
-      averageCost: DataTypes.DOUBLE,
-      photo: DataTypes.TEXT,
-      housing: DataTypes.BOOLEAN,
-      jobAssistance: DataTypes.BOOLEAN,
-      jobGuarantee: DataTypes.BOOLEAN,
-      acceptGi: DataTypes.BOOLEAN,
+      averageRating: {
+        type: DataTypes.INTEGER,
+      },
+      averageCost: {
+        type: DataTypes.DOUBLE,
+      },
+      photo: {
+        type: DataTypes.TEXT,
+      },
+      housing: {
+        type: DataTypes.BOOLEAN,
+      },
+      jobAssistance: {
+        type: DataTypes.BOOLEAN,
+      },
+      jobGuarantee: {
+        type: DataTypes.BOOLEAN,
+      },
+      acceptGi: {
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       sequelize,

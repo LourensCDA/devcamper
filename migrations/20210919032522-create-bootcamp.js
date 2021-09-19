@@ -11,7 +11,9 @@ module.exports = {
           type: DataTypes.INTEGER,
         },
         name: {
-          type: DataTypes.STRING,
+          type: DataTypes.STRING(50),
+          allowNull: false,
+          unique: true,
         },
         slug: {
           type: DataTypes.TEXT,
@@ -78,6 +80,8 @@ module.exports = {
     );
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('bootcamps', { schema: 'devcamper' });
+    await queryInterface.dropTable('bootcamps', {
+      schema: 'devcamper',
+    });
   },
 };

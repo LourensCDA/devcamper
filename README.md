@@ -63,6 +63,8 @@ Some things to note:
 
 Postgresql has a distinction between a database and a schema.
 
+Sequelize-cli does not appear to support this functionality.
+
 Sequelize-cli provides a way to add the database but not the schema and will default the table creation (from the model) to be in the public schema.
 
 A schema can be added in the options part of the model declaration and migration options.
@@ -74,3 +76,9 @@ create schema devcamper;
 ```
 
 This also highlights a potential issue where one runs multiple databases that the sequelize user may not need access to. I suggest creating your database and schemas seperatly, not using the sequelize-cli, so you can still control user access on schemas. Model migration can work using sequelize-cli.
+
+Reversing migration also does not work, if using a different schema than public. Tables need to be manually dropped:
+
+```sql
+drop table if exists devcamper.bootcamps;
+```

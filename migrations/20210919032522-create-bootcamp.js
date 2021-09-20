@@ -22,7 +22,7 @@ module.exports = {
           type: DataTypes.TEXT,
         },
         phone: {
-          type: DataTypes.STRING,
+          type: DataTypes.STRING(20),
         },
         email: {
           type: DataTypes.TEXT,
@@ -52,18 +52,23 @@ module.exports = {
         },
         photo: {
           type: DataTypes.TEXT,
+          default: 'no-photo.jpg',
         },
         housing: {
           type: DataTypes.BOOLEAN,
+          default: false,
         },
         jobAssistance: {
           type: DataTypes.BOOLEAN,
+          default: false,
         },
         jobGuarantee: {
           type: DataTypes.BOOLEAN,
+          default: false,
         },
         acceptGi: {
           type: DataTypes.BOOLEAN,
+          default: false,
         },
         createdAt: {
           allowNull: false,

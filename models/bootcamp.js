@@ -32,24 +32,64 @@ module.exports = (sequelize, DataTypes) => {
       },
       slug: {
         type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Please add a description',
+          },
+          notEmpty: {
+            msg: 'Please add a description',
+          },
+          max: {
+            args: 500,
+            msg: 'Description can not be more than 500 characters',
+          },
+        },
       },
       website: {
         type: DataTypes.TEXT,
+        validate: {
+          is: {
+            args: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+            msg: 'Please use a valid URL with HTTP or HTTPS',
+          },
+        },
       },
       phone: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(20),
+        validate: {
+          max: {
+            args: 20,
+            msg: 'Phone number can not be longer than 20 characters',
+          },
+        },
       },
       email: {
         type: DataTypes.TEXT,
+        validate: {
+          isEmail: {
+            msg: 'Please add a valid email',
+          },
+        },
       },
       address: {
         type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Please add an address',
+          },
+          notEmpty: {
+            msg: 'Please add an address',
+          },
+        },
       },
       location: {
         type: DataTypes.JSONB,
       },
       careers: {
         type: DataTypes.ENUM,
+        allowNull: false,
         values: [
           'Web Development',
           'Mobile Development',
@@ -61,24 +101,39 @@ module.exports = (sequelize, DataTypes) => {
       },
       averageRating: {
         type: DataTypes.INTEGER,
+        validate: {
+          min: {
+            args: 1,
+            msg: 'Rating must be at least 1',
+          },
+          max: {
+            args: 10,
+            msg: 'Rating must can not be more than 10',
+          },
+        },
       },
       averageCost: {
         type: DataTypes.DOUBLE,
       },
       photo: {
         type: DataTypes.TEXT,
+        default: 'no-photo.jpg',
       },
       housing: {
         type: DataTypes.BOOLEAN,
+        default: false,
       },
       jobAssistance: {
         type: DataTypes.BOOLEAN,
+        default: false,
       },
       jobGuarantee: {
         type: DataTypes.BOOLEAN,
+        default: false,
       },
       acceptGi: {
         type: DataTypes.BOOLEAN,
+        default: false,
       },
     },
     {

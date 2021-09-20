@@ -15,7 +15,8 @@ module.exports = {
           allowNull: false,
           unique: true,
         },
-        slug: {
+        slug: DataTypes.TEXT,
+        description: {
           type: DataTypes.TEXT,
         },
         website: {
@@ -34,15 +35,16 @@ module.exports = {
           type: DataTypes.JSONB,
         },
         careers: {
-          type: DataTypes.ENUM,
-          values: [
-            'Web Development',
-            'Mobile Development',
-            'UI/UX',
-            'Data Science',
-            'Business',
-            'Other',
-          ],
+          type: DataTypes.ARRAY(
+            DataTypes.ENUM(
+              'Web Development',
+              'Mobile Development',
+              'UI/UX',
+              'Data Science',
+              'Business',
+              'Other'
+            )
+          ),
         },
         averageRating: {
           type: DataTypes.INTEGER,

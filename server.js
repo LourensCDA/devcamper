@@ -12,6 +12,9 @@ dotenv.config({ path: './config/config.env' });
 
 const app = express();
 
+// Body parse
+app.use(express.json());
+
 const PORT = process.env.PORT || 3000;
 
 // dev logging middleware

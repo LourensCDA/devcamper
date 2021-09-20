@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      slug: {
+      slug: DataTypes.TEXT,
+      description: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
@@ -88,16 +89,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.JSONB,
       },
       careers: {
-        type: DataTypes.ENUM,
+        type: DataTypes.ARRAY(
+          DataTypes.ENUM(
+            'Web Development',
+            'Mobile Development',
+            'UI/UX',
+            'Data Science',
+            'Business',
+            'Other'
+          )
+        ),
         allowNull: false,
-        values: [
-          'Web Development',
-          'Mobile Development',
-          'UI/UX',
-          'Data Science',
-          'Business',
-          'Other',
-        ],
       },
       averageRating: {
         type: DataTypes.INTEGER,

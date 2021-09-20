@@ -1,3 +1,5 @@
+const { sequelize, Bootcamp } = require('../models');
+
 //  @desc Get all bootcamps
 //  @route  GET /api/v1/bootcamps
 //  @access public
@@ -17,8 +19,22 @@ exports.getBootcamp = (req, res, next) => {
 //  @desc Create new bootcamp
 //  @route  POST /api/v1/bootcamps
 //  @access private
-exports.createBootcamp = (req, res, next) => {
-  res.status(200).json({ success: true, message: 'Create new bootcamp' });
+exports.createBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.create(req.body);
+    return res.status(201).json({
+      success: true,
+      message: 'New bootcamp created',
+      content: bootcamp,
+    });
+  } catch (err) {
+    // console.log(err);
+    return res.status(400).json({
+      status: false,
+      message: 'New bootcamp not created',
+      errors: err,
+    });
+  }
 };
 
 //  @desc Update bootcamp

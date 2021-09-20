@@ -82,3 +82,9 @@ Reversing migration also does not work, if using a different schema than public.
 ```sql
 drop table if exists devcamper.bootcamps;
 ```
+
+## TODO
+
+Updated: 2021/09/20
+
+- Add a handler to drop tables in different schema

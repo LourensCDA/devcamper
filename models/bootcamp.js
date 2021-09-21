@@ -119,23 +119,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       photo: {
         type: DataTypes.TEXT,
-        default: 'no-photo.jpg',
+        defaultValue: 'no-photo.jpg',
       },
       housing: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
       jobAssistance: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
       jobGuarantee: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
       acceptGi: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       },
     },
     {

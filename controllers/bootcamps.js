@@ -9,7 +9,7 @@ exports.getBootcamps = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: 'Returned all bootcamps',
-      content: bootcamps,
+      content: { count: bootcamps.length, bootcamps: bootcamps },
     });
   } catch (err) {
     return res.status(400).json({

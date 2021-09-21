@@ -6,13 +6,13 @@ const { sequelize, Bootcamp } = require('../models');
 exports.getBootcamps = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.findAll();
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: 'Returned all bootcamps',
       content: { count: bootcamps.length, bootcamps: bootcamps },
     });
   } catch (err) {
-    return res.status(400).json({
+    res.status(400).json({
       status: false,
       message: 'Error retrieving bootcamps',
       errors: err,
@@ -36,13 +36,13 @@ exports.getBootcamp = async (req, res, next) => {
         .json({ status: false, message: 'Bootcamp does not exist' });
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: 'Returned bootcamp',
       content: bootcamp,
     });
   } catch (err) {
-    return res.status(400).json({
+    res.status(400).json({
       status: false,
       message: 'Error retrieving bootcamp',
       errors: err,
@@ -56,14 +56,14 @@ exports.getBootcamp = async (req, res, next) => {
 exports.createBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.create(req.body);
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       message: 'New bootcamp created',
       content: bootcamp,
     });
   } catch (err) {
     // console.log(err);
-    return res.status(400).json({
+    res.status(400).json({
       status: false,
       message: 'New bootcamp not created',
       errors: err,
@@ -88,13 +88,13 @@ exports.updateBootcamp = async (req, res, next) => {
         .json({ status: false, message: 'Bootcamp does not exist' });
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: 'Returned bootcamp',
       content: bootcamp[1],
     });
   } catch (err) {
-    return res.status(400).json({
+    res.status(400).json({
       status: false,
       message: 'Error retrieving bootcamp',
       errors: err,
@@ -118,12 +118,12 @@ exports.deleteBootcamp = async (req, res, next) => {
         .json({ status: false, message: 'Bootcamp does not exist' });
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: 'Bootcamp deleted',
     });
   } catch (err) {
-    return res.status(400).json({
+    res.status(400).json({
       status: false,
       message: 'Error deleteing bootcamp',
       errors: err,

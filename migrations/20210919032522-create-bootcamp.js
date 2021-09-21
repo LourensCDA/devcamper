@@ -8,10 +8,10 @@ module.exports = {
       'bootcamps',
       {
         id: {
-          allowNull: false,
-          autoIncrement: true,
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
-          type: DataTypes.INTEGER,
+          allowNull: false,
         },
         name: {
           type: DataTypes.STRING(50),

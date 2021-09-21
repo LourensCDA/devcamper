@@ -3,17 +3,41 @@ const { sequelize, Bootcamp } = require('../models');
 //  @desc Get all bootcamps
 //  @route  GET /api/v1/bootcamps
 //  @access public
-exports.getBootcamps = (req, res, next) => {
-  res.status(200).json({ success: true, message: 'Show all bootcamps' });
+exports.getBootcamps = async (req, res, next) => {
+  try {
+    const bootcamps = await Bootcamp.findAll();
+    return res.status(200).json({
+      success: true,
+      message: 'Returned all bootcamps',
+      content: bootcamps,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      status: false,
+      message: 'Error retrieving bootcamps',
+      errors: err,
+    });
+  }
 };
 
 //  @desc Get specific bootcamps
 //  @route  GET /api/v1/bootcamps/:id
 //  @access public
 exports.getBootcamp = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Get bootcamp ${req.params.id}` });
+  try {
+    const bootcamps = await Bootcamp.findAll();
+    return res.status(200).json({
+      success: true,
+      message: 'Returned all bootcamps',
+      content: bootcamps,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      status: false,
+      message: 'Error retrieving bootcamps',
+      errors: err,
+    });
+  }
 };
 
 //  @desc Create new bootcamp

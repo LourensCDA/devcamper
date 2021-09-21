@@ -1,6 +1,9 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, DataTypes) => {
+    await queryInterface.sequelize.query(
+      'create schema if not exists devcamper;'
+    ); // create schema if not exists
     await queryInterface.createTable(
       'bootcamps',
       {
@@ -87,8 +90,11 @@ module.exports = {
     );
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('bootcamps', {
-      schema: 'devcamper',
-    });
+    await queryInterface.sequelize.query(
+      'drop table if exists devcamper.bootcamps;'
+    ); // drop tables in other schemas
+    await queryInterface.sequelize.query(
+      'drop type if exists devcamper.enum_bootcamps_careers;'
+    ); // drop enum
   },
 };

@@ -77,14 +77,12 @@ create schema devcamper;
 
 This also highlights a potential issue where one runs multiple databases that the sequelize user may not need access to. I suggest creating your database and schemas seperatly, not using the sequelize-cli, so you can still control user access on schemas. Model migration can work using sequelize-cli.
 
-Reversing migration also does not work, if using a different schema than public. Tables need to be manually dropped:
-
 ```sql
 drop table if exists devcamper.bootcamps;
 ```
 
 ## TODO
 
-Updated: 2021/09/20
+Updated: 2021/09/21
 
-- Add a handler to drop tables in different schema
+- ~~Add a handler to drop tables in different schema~~

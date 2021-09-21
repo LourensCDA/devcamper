@@ -23,18 +23,28 @@ exports.getBootcamps = async (req, res, next) => {
 //  @desc Get specific bootcamps
 //  @route  GET /api/v1/bootcamps/:id
 //  @access public
-exports.getBootcamp = (req, res, next) => {
+exports.getBootcamp = async (req, res, next) => {
+  const id = req.params.id;
   try {
-    const bootcamps = await Bootcamp.findAll();
+    const bootcamp = await Bootcamp.findOne({
+      where: { id },
+    });
+
+    if (!bootcamp) {
+      return res
+        .status(400)
+        .json({ status: false, message: 'Bootcamp does not exist' });
+    }
+
     return res.status(200).json({
       success: true,
-      message: 'Returned all bootcamps',
-      content: bootcamps,
+      message: 'Returned bootcamp',
+      content: bootcamp,
     });
   } catch (err) {
     return res.status(400).json({
       status: false,
-      message: 'Error retrieving bootcamps',
+      message: 'Error retrieving bootcamp',
       errors: err,
     });
   }

@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const color = require('colors');
+const errorHanlder = require('./middleware/error');
 const { sequelize } = require('./models');
 
 // route files
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 
 // mount routes
 app.use('/api/v1/bootcamps', bootcamps);
+
+app.use(errorHanlder);
 
 const server = app.listen(PORT, async () => {
   console.log(

@@ -1,3 +1,4 @@
+const ErrorResponse = require('../utils/errorResponse');
 const { sequelize, Bootcamp } = require('../models');
 
 //  @desc Get all bootcamps
@@ -31,9 +32,10 @@ exports.getBootcamp = async (req, res, next) => {
     });
 
     if (!bootcamp) {
-      return res
-        .status(400)
-        .json({ status: false, message: 'Bootcamp does not exist' });
+      return next(
+        new ErrorResponse(`Boptcamp not found with id of ${req.params.id}`),
+        404
+      );
     }
 
     res.status(200).json({
@@ -42,7 +44,10 @@ exports.getBootcamp = async (req, res, next) => {
       content: bootcamp,
     });
   } catch (err) {
-    next(err);
+    next(
+      new ErrorResponse(`Boptcamp not found with id of ${req.params.id}`),
+      404
+    );
   }
 };
 

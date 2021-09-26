@@ -83,7 +83,8 @@ drop table if exists devcamper.bootcamps;
 
 ## TODO
 
-Updated: 2021/09/21
+Updated: 2021/09/26
 
 - ~~Add a handler to drop tables in different schema~~
+- Find way to get "value" on error handler
 - Geojson in sequelize

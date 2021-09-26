@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const color = require('colors');
+const colors = require('colors');
 const errorHanlder = require('./middleware/error');
 const { sequelize } = require('./models');
 

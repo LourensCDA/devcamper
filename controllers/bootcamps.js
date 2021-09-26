@@ -43,11 +43,6 @@ exports.getBootcamp = async (req, res, next) => {
     });
   } catch (err) {
     next(err);
-    // res.status(400).json({
-    //   status: false,
-    //   message: 'Error retrieving bootcamp',
-    //   errors: err,
-    // });
   }
 };
 

@@ -73,9 +73,10 @@ exports.updateBootcamp = async (req, res, next) => {
     });
 
     if (!bootcamp) {
-      return res
-        .status(400)
-        .json({ status: false, message: 'Bootcamp does not exist' });
+      return next(
+        new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`),
+        404
+      );
     }
 
     res.status(200).json({
@@ -99,9 +100,10 @@ exports.deleteBootcamp = async (req, res, next) => {
     });
 
     if (bootcamp == 0) {
-      return res
-        .status(400)
-        .json({ status: false, message: 'Bootcamp does not exist' });
+      return next(
+        new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`),
+        404
+      );
     }
 
     res.status(200).json({

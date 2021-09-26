@@ -13,11 +13,7 @@ exports.getBootcamps = async (req, res, next) => {
       content: { count: bootcamps.length, bootcamps: bootcamps },
     });
   } catch (err) {
-    res.status(400).json({
-      status: false,
-      message: 'Error retrieving bootcamps',
-      errors: err,
-    });
+    next(err);
   }
 };
 
@@ -33,7 +29,7 @@ exports.getBootcamp = async (req, res, next) => {
 
     if (!bootcamp) {
       return next(
-        new ErrorResponse(`Boptcamp not found with id of ${req.params.id}`),
+        new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`),
         404
       );
     }
@@ -44,10 +40,7 @@ exports.getBootcamp = async (req, res, next) => {
       content: bootcamp,
     });
   } catch (err) {
-    next(
-      new ErrorResponse(`Boptcamp not found with id of ${req.params.id}`),
-      404
-    );
+    next(err);
   }
 };
 
@@ -64,11 +57,7 @@ exports.createBootcamp = async (req, res, next) => {
     });
   } catch (err) {
     // console.log(err);
-    res.status(400).json({
-      status: false,
-      message: 'New bootcamp not created',
-      errors: err,
-    });
+    next(err);
   }
 };
 
@@ -95,11 +84,7 @@ exports.updateBootcamp = async (req, res, next) => {
       content: bootcamp[1],
     });
   } catch (err) {
-    res.status(400).json({
-      status: false,
-      message: 'Error retrieving bootcamp',
-      errors: err,
-    });
+    next(err);
   }
 };
 
@@ -124,10 +109,6 @@ exports.deleteBootcamp = async (req, res, next) => {
       message: 'Bootcamp deleted',
     });
   } catch (err) {
-    res.status(400).json({
-      status: false,
-      message: 'Error deleteing bootcamp',
-      errors: err,
-    });
+    next(err);
   }
 };

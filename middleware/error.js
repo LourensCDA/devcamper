@@ -2,6 +2,7 @@ const ErrorResponse = require('../utils/errorResponse');
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err }; // ... spread operator
+  let error_detail = new Array();
   let error_fields = new Array();
 
   error.message = err.message;
@@ -26,9 +27,18 @@ const errorHandler = (err, req, res, next) => {
     const message = `Invalid data provided`;
     error = new ErrorResponse(message, 400);
     // display fields as array of objects
-    error_fields = err.errors.map((element) =>
-      Object.assign({}, { field: element.path, description: element.message })
-    );
+    err.errors.map((element) => {
+      error_fields.push(element.path);
+      error_detail.push(
+        Object.assign(
+          {},
+          {
+            field: element.path,
+            description: element.message,
+          }
+        )
+      );
+    });
   }
 
   // return arrary of errors per field if available
@@ -36,7 +46,11 @@ const errorHandler = (err, req, res, next) => {
     res.status(error.statusCode || 500).json({
       success: false,
       message: error.message || 'Server Error',
-      errors: error_fields,
+      errors: {
+        count: error_fields.length,
+        fields: error_fields,
+        detail: error_detail,
+      },
     });
   } else {
     res.status(error.statusCode || 500).json({

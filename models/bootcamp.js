@@ -167,7 +167,6 @@ module.exports = (sequelize, DataTypes) => {
           );
         },
       },
-      individualHooks: true,
       sequelize,
       tableName: 'bootcamps',
       modelName: 'Bootcamp',

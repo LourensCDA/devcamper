@@ -70,6 +70,7 @@ exports.updateBootcamp = async (req, res, next) => {
     const bootcamp = await Bootcamp.update(req.body, {
       where: { id },
       returning: true,
+      individualHooks: true,
     });
 
     if (!bootcamp) {
@@ -97,6 +98,7 @@ exports.deleteBootcamp = async (req, res, next) => {
     const id = req.params.id;
     const bootcamp = await Bootcamp.destroy({
       where: { id },
+      individualHooks: true,
     });
 
     if (bootcamp == 0) {

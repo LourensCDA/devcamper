@@ -88,11 +88,23 @@ module.exports = {
         schema: 'devcamper',
       }
     );
+    // create a copy of the table for historic records
+    await queryInterface.sequelize.query(
+      'create table if not exists devcamper.bootcamps_h as (select * from devcamper.bootcamps);'
+    );
+    // create primary key for history table
+    await queryInterface.sequelize.query(
+      'alter table devcamper.bootcamps_h add primary key (id, "updatedAt");'
+    );
   },
   down: async (queryInterface, Sequelize) => {
+    // drop tables in other schemas
     await queryInterface.sequelize.query(
       'drop table if exists devcamper.bootcamps;'
-    ); // drop tables in other schemas
+    );
+    await queryInterface.sequelize.query(
+      'drop table if exists devcamper.bootcamps_h;'
+    );
     await queryInterface.sequelize.query(
       'drop type if exists devcamper.enum_bootcamps_careers;'
     ); // drop enum

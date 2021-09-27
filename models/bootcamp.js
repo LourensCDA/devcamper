@@ -1,5 +1,5 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, QueryInterface } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Bootcamp extends Model {
     /**
@@ -144,6 +144,30 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      hooks: {
+        // creates entry in history table when new records is created
+        afterCreate: async (bootcamp, options) => {
+          console.log(`New bootcamp ID: ${bootcamp.id}`);
+          await sequelize.query(
+            `insert into devcamper.bootcamps_h select * from devcamper.bootcamps where id = '${bootcamp.id}' on conflict do nothing;`
+          );
+        },
+        // creates entry in history table after record is updated
+        afterUpdate: async (bootcamp, options) => {
+          console.log(`Update bootcamp ID: ${bootcamp.id}`);
+          await sequelize.query(
+            `insert into devcamper.bootcamps_h select * from devcamper.bootcamps where id = '${bootcamp.id}' on conflict do nothing;`
+          );
+        },
+        // checks that copy of record exists on history table
+        beforeDestroy: async (bootcamp, options) => {
+          console.log(`Delete bootcamp : ${bootcamp.id}`);
+          await sequelize.query(
+            `insert into devcamper.bootcamps_h select * from devcamper.bootcamps where id = '${bootcamp.id}' on conflict do nothing;`
+          );
+        },
+      },
+      individualHooks: true,
       sequelize,
       tableName: 'bootcamps',
       modelName: 'Bootcamp',

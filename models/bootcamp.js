@@ -159,7 +159,7 @@ module.exports = (sequelize, DataTypes) => {
             `insert into devcamper.bootcamps_h select * from devcamper.bootcamps where id = '${bootcamp.id}' on conflict do nothing;`
           );
         },
-        // checks that copy of record exists on history table
+        // checks that copy of record exists on history table before delete
         beforeDestroy: async (bootcamp, options) => {
           console.log(`Delete bootcamp : ${bootcamp.id}`);
           await sequelize.query(

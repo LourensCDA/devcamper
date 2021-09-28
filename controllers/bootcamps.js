@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const { sequelize, Bootcamp } = require('../models');
 const asyncHandler = require('../middleware/async');
+const slugify = require('slugify');
 
 //  @desc Get all bootcamps
 //  @route  GET /api/v1/bootcamps

@@ -1,5 +1,6 @@
 'use strict';
 const { Model, QueryInterface } = require('sequelize');
+const { default: slugify } = require('slugify');
 module.exports = (sequelize, DataTypes) => {
   class Bootcamp extends Model {
     /**
@@ -145,6 +146,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       hooks: {
+        beforeCreate: async (bootcamp, options) => {
+          console.log('Slugify ran on ', bootcamp.name);
+          bootcamp.slug = slugify(bootcamp.name, { lower: true });
+        },
         // creates entry in history table when new records is created
         afterCreate: async (bootcamp, options) => {
           console.log(`New bootcamp ID: ${bootcamp.id}`);

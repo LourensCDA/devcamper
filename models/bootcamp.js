@@ -1,6 +1,7 @@
 'use strict';
 const { Model, QueryInterface } = require('sequelize');
 const { default: slugify } = require('slugify');
+const geocoder = require('../utils/geocoder');
 module.exports = (sequelize, DataTypes) => {
   class Bootcamp extends Model {
     /**
@@ -149,6 +150,18 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: async (bootcamp, options) => {
           console.log('Slugify ran on ', bootcamp.name);
           bootcamp.slug = slugify(bootcamp.name, { lower: true });
+          const loc = await geocoder.geocode(bootcamp.address);
+          bootcamp.location = {
+            type: 'Point',
+            coordinates: [loc[0].longitude, loc[0].latitude],
+            formattedAddress: loc[0].formattedAddress,
+            street: loc[0].streetName,
+            city: loc[0].city,
+            state: loc[0].stateCode,
+            zipcode: loc[0].zipcode,
+            country: loc[0].countryCode,
+          };
+          bootcamp.address = undefined;
         },
         // creates entry in history table when new records is created
         afterCreate: async (bootcamp, options) => {

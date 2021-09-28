@@ -3,13 +3,14 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const errorHanlder = require('./middleware/error');
+
+// load env vars
+dotenv.config({ path: './config/config.env' });
+
 const { sequelize } = require('./models');
 
 // route files
 const bootcamps = require('./routes/bootcamps');
-
-// load env vars
-dotenv.config({ path: './config/config.env' });
 
 const app = express();
 

@@ -150,6 +150,7 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: async (bootcamp, options) => {
           console.log('Slugify ran on ', bootcamp.name);
           bootcamp.slug = slugify(bootcamp.name, { lower: true });
+          // populate geocoder
           const loc = await geocoder.geocode(bootcamp.address);
           bootcamp.location = {
             type: 'Point',
@@ -161,7 +162,7 @@ module.exports = (sequelize, DataTypes) => {
             zipcode: loc[0].zipcode,
             country: loc[0].countryCode,
           };
-          bootcamp.address = undefined;
+          bootcamp.address = bootcamp.address;
         },
         // creates entry in history table when new records is created
         afterCreate: async (bootcamp, options) => {

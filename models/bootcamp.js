@@ -162,7 +162,6 @@ module.exports = (sequelize, DataTypes) => {
             zipcode: loc[0].zipcode,
             country: loc[0].countryCode,
           };
-          bootcamp.address = bootcamp.address;
         },
         // creates entry in history table when new records is created
         afterCreate: async (bootcamp, options) => {

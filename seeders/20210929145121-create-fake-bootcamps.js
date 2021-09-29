@@ -34,6 +34,7 @@ module.exports = {
           updatedAt: Sequelize.literal('now()'),
         },
         {
+          id: Sequelize.literal('uuid_generate_v4()'),
           name: 'ModernTech Bootcamp',
           description:
             'ModernTech has one goal, and that is to make you a rockstar developer and/or designer with a six figure salary. We teach both development and UI/UX',
@@ -41,13 +42,18 @@ module.exports = {
           phone: '(222) 222-2222',
           email: 'enroll@moderntech.com',
           address: '220 Pawtucket St, Lowell, MA 01854',
-          careers: ['Web Development', 'UI/UX', 'Mobile Development'],
+          careers: Sequelize.literal(
+            `ARRAY['Web Development', 'UI/UX', 'Mobile Development']::devcamper.enum_bootcamps_careers[]`
+          ),
           housing: false,
           jobAssistance: true,
           jobGuarantee: false,
           acceptGi: true,
+          createdAt: Sequelize.literal('now()'),
+          updatedAt: Sequelize.literal('now()'),
         },
         {
+          id: Sequelize.literal('uuid_generate_v4()'),
           name: 'Codemasters',
           description:
             'Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in full stack web development and data science',
@@ -55,13 +61,18 @@ module.exports = {
           phone: '(333) 333-3333',
           email: 'enroll@codemasters.com',
           address: '85 South Prospect Street Burlington VT 05405',
-          careers: ['Web Development', 'Data Science', 'Business'],
+          careers: Sequelize.literal(
+            `ARRAY['Web Development', 'Data Science', 'Business']::devcamper.enum_bootcamps_careers[]`
+          ),
           housing: false,
           jobAssistance: false,
           jobGuarantee: false,
           acceptGi: false,
+          createdAt: Sequelize.literal('now()'),
+          updatedAt: Sequelize.literal('now()'),
         },
         {
+          id: Sequelize.literal('uuid_generate_v4()'),
           name: 'Devcentral Bootcamp',
           description:
             'Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in front end and full stack web development',
@@ -69,16 +80,15 @@ module.exports = {
           phone: '(444) 444-4444',
           email: 'enroll@devcentral.com',
           address: '45 Upper College Rd Kingston RI 02881',
-          careers: [
-            'Mobile Development',
-            'Web Development',
-            'Data Science',
-            'Business',
-          ],
+          careers: Sequelize.literal(
+            `ARRAY['Mobile Development', 'Web Development', 'Data Science', 'Business']::devcamper.enum_bootcamps_careers[]`
+          ),
           housing: false,
           jobAssistance: true,
           jobGuarantee: true,
           acceptGi: true,
+          createdAt: Sequelize.literal('now()'),
+          updatedAt: Sequelize.literal('now()'),
         },
       ],
       {}

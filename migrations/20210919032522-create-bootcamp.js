@@ -99,12 +99,14 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     // drop tables in other schemas
-    await queryInterface.sequelize.query(
-      'drop table if exists devcamper.bootcamps;'
-    );
-    await queryInterface.sequelize.query(
-      'drop table if exists devcamper.bootcamps_h;'
-    );
+    await queryInterface.dropTable({
+      tableName: 'bootcamps',
+      schema: 'devcamper',
+    });
+    await queryInterface.dropTable({
+      tableName: 'bootcamps_h',
+      schema: 'devcamper',
+    });
     await queryInterface.sequelize.query(
       'drop type if exists devcamper.enum_bootcamps_careers;'
     ); // drop enum

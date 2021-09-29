@@ -12,9 +12,10 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      'bootcamps',
+      { tableName: 'bootcamps', schema: 'devcamper' },
       [
         {
+          id: Sequelize.literal('uuid_generate_v4()'),
           name: 'Devworks Bootcamp',
           description:
             'Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer',
@@ -22,11 +23,15 @@ module.exports = {
           phone: '(111) 111-1111',
           email: 'enroll@devworks.com',
           address: '233 Bay State Rd Boston MA 02215',
-          careers: ['Web Development', 'UI/UX', 'Business'],
+          careers: Sequelize.literal(
+            `ARRAY['Web Development', 'UI/UX', 'Business']::devcamper.enum_bootcamps_careers[]`
+          ),
           housing: true,
           jobAssistance: true,
           jobGuarantee: false,
           acceptGi: true,
+          createdAt: Sequelize.literal('now()'),
+          updatedAt: Sequelize.literal('now()'),
         },
         {
           name: 'ModernTech Bootcamp',
@@ -87,6 +92,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('bootcamps', null, {});
+    await queryInterface.bulkDelete(
+      { tableName: 'bootcamps', schema: 'devcamper' },
+      null,
+      {}
+    );
   },
 };

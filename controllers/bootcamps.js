@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const { sequelize, Bootcamp } = require('../models');
 const asyncHandler = require('../middleware/async');
+const geocoder = require('../utils/geocoder');
 const slugify = require('slugify');
 
 //  @desc Get all bootcamps
@@ -97,4 +98,22 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
     success: true,
     message: 'Bootcamp deleted',
   });
+});
+
+//  @desc Get bootcamps within a radius
+//  @route  GET /api/v1/bootcamps/radius/:zipcode/:distance
+//  @access private
+exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
+  const { zipcode, distance } = req.params;
+  // Get lat/log from geocoder
+  const loc = await geocoder.geocode(zipcode);
+  const lat = loc[0].latitude;
+  const lng = loc[0].longitude;
+
+  // Calc radius using radians
+  // Divide dist by radius of Earth
+  // Earth Radius = 3,963 mi or 6,378 km
+  const radius = distance / 6378;
+
+  // const bootcamps = await Bootcamp.findAll({where:})
 });

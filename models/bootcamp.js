@@ -152,9 +152,10 @@ module.exports = (sequelize, DataTypes) => {
           bootcamp.slug = slugify(bootcamp.name, { lower: true });
           // populate geocoder
           const loc = await geocoder.geocode(bootcamp.address);
+          console.log(loc);
           bootcamp.location = {
             type: 'Point',
-            coordinates: [loc[0].longitude, loc[0].latitude],
+            coordinates: [loc[0].latitude, loc[0].longitude],
             formattedAddress: loc[0].formattedAddress,
             street: loc[0].streetName,
             city: loc[0].city,
